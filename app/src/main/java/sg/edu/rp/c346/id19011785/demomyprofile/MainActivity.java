@@ -26,7 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Step 1(a): Get user input from EditText and store it in a variable
         String strName = etName.getText().toString();
-        float fgpa = Float.parseFloat(etGPA.getText().toString());
+        String strGPA = etGPA.getText().toString();
+        float gpa1 = 0f; /*Float.parseFloat(etGPA.getText().toString());*/
+        if (strGPA.length() > 0) {
+            gpa1 = Float.parseFloat(strGPA);
+        }
 
         // Step 1(b): Obtain an instance of the SharedPreferences
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Step 1(d): Add key-value pair
         prefEdit.putString("name", strName);
-        prefEdit.putFloat("gpa", fgpa);
+        prefEdit.putFloat("gpa", gpa1);
 
         // Step 1(e): Call commit() to save the changes into SharedPreferences
         prefEdit.commit();
@@ -53,15 +57,9 @@ public class MainActivity extends AppCompatActivity {
         // Step 2(b): Retrieve saved data from SharedPreferences object
         String strName = prefs.getString("name", "");
         float fgpa = prefs.getFloat("gpa", 0);
-        String inputGPA = etGPA.getText().toString();
-        float gpa1 = 0f; /*Float.parseFloat(etGPA.getText().toString());*/
-        if (inputGPA.length() > 0) {
-            gpa1 = Float.parseFloat(inputGPA);
-        }
-        String strGPA = String.valueOf(gpa1);
 
         // Step 2(c): Update UI element with the value
         etName.setText(strName);
-        etGPA.setText(strGPA);
+        etGPA.setText(String.valueOf(fgpa));
     }
 }
